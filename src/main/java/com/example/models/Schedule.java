@@ -1,22 +1,69 @@
 package com.example.models;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Schedule {
-    public String id;
-    public List<Attraction> attractions;
-    public LocalTime startTime;
-    public LocalTime endTime;
-    public List<String> specialEvents;
+    private int id;
+    @Nullable
+    private List<Attraction> attractions;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    @Nullable
+    private List<String> specialEvents;
 
-    public Schedule(String id, List<Attraction> attractions, LocalTime startTime, LocalTime endTime, List<String> specialEvents) {
-        this.id = id;
+    Random rand = new Random();
+
+    public Schedule(@Nullable List<Attraction> attractions, LocalTime startTime, LocalTime endTime, @Nullable List<String> specialEvents) {
+        this.id = rand.nextInt();
         this.attractions = attractions;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.specialEvents = specialEvents;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public @Nullable List<Attraction> getAttractions() {
+        return attractions;
+    }
+
+    public void setAttractions(@Nullable List<Attraction> attractions) {
+        this.attractions = attractions;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public @Nullable List<String> getSpecialEvents() {
+        return specialEvents;
+    }
+
+    public void setSpecialEvents(@Nullable List<String> specialEvents) {
         this.specialEvents = specialEvents;
     }
 
@@ -39,11 +86,11 @@ public class Schedule {
     @Override
     public String toString() {
         return "Schedule{" +
-                "id='" + id + '\'' +
-                ", attractions=" + shortAttractionList(attractions) +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", specialEvents=" + specialEvents +
+                "id='" + getId() + '\'' +
+                ", attractions=" + shortAttractionList(getAttractions()) +
+                ", startTime=" + getStartTime() +
+                ", endTime=" + getEndTime() +
+                ", specialEvents=" + getSpecialEvents() +
                 '}';
     }
 

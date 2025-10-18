@@ -1,13 +1,11 @@
 package com.example;
 
 import com.example.entities.AttractionType;
-import com.example.entities.Position;
 import com.example.entities.Status;
-import com.example.entities.TicketType;
+import com.example.entities.UserRole;
 import com.example.models.Attraction;
 import com.example.models.Schedule;
-import com.example.models.Staff;
-import com.example.models.Visitor;
+import com.example.models.user_specified.User;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,8 +13,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        User user = new User("John", "doe", 10, "email", "password", UserRole.STAFF, null);
+
         Attraction attraction = new Attraction(
-                "001",
                 "atractionName",
                 AttractionType.FAMILY,
                 "description",
@@ -27,36 +27,20 @@ public class Main {
                 40
         );
 
-        Visitor visitor = new Visitor(
-                "100",
-                "name",
-                10,
-                List.of(TicketType.SINGLE),
-                List.of("schedule1"),
-                new ArrayList<>()
-        );
-
-        Staff staff = new Staff(
-                "1",
-                "name",
-                "lastName",
-                "https://example.com/photo.jpg",
-                Position.OPERATOR,
-                List.of(attraction),
-                "workSchedule"
-        );
-
         Schedule schedule = new Schedule(
-                "01",
                 List.of(attraction),
                 LocalTime.of(10, 0),
                 LocalTime.of(21, 0),
-                List.of("atraction1", "attraction2")
+                List.of("se1", "se2")
         );
 
+        User staffUser = user.CreateStaff(null, new ArrayList<>(), null);
+        User visitorUser = user.CreateVisitor(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
+        System.out.println(user.toString());
+        System.out.println(staffUser.toString());
+        System.out.println(visitorUser.toString());
         System.out.println(attraction);
-        System.out.println(visitor);
-        System.out.println(staff);
         System.out.println(schedule);
     }
 }
