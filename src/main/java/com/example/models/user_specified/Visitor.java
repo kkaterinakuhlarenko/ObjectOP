@@ -1,27 +1,29 @@
 package com.example.models.user_specified;
 
 import com.example.entities.TicketType;
-import com.example.entities.UserRole;
-import com.example.models.Attraction;
+import com.example.models.Review;
+import com.example.models.park_specified.ParkEntity;
+import com.example.models.Ticket;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-class Visitor extends User {
+public class Visitor extends User {
     @Nullable
-    private List<TicketType> tickets;
+    private List<Ticket> tickets;
     @Nullable
-    private List<String> visitHistory;
+    private List<LocalDateTime> visitHistory;
     @Nullable
     private List<String> bookings;
 
     public Visitor(String firstName, String lastName, int age,
-                   String email, String password, UserRole role, String photoUrl,
-                   List<TicketType> tickets, List<String> visitHistory, List<String> bookings) {
-        super(firstName, lastName, age, email, password, role, photoUrl);
-        this.tickets = tickets;
-        this.visitHistory = visitHistory;
-        this.bookings = bookings;
+                   String email, String password, String photoUrl) {
+        super(firstName, lastName, age, email, password, UserRole.VISITOR, photoUrl);
+        this.tickets = new ArrayList<>();
+        this.visitHistory = new ArrayList<>();
+        this.bookings = new ArrayList<>();
     }
 
     public void register(String email, String password) {
@@ -32,7 +34,7 @@ class Visitor extends User {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public boolean bookAttraction(Attraction attraction, String timeSlot) {
+    public boolean bookParkEntity(ParkEntity ParkEntity, String timeSlot) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
@@ -40,23 +42,30 @@ class Visitor extends User {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public void leaveReview(Attraction attraction, String reviewText, int rating) {
-        throw new UnsupportedOperationException("Not implemented");
+    public void leaveReview(Long parkEntityId, String reviewText, int rating) {
+        Review rev = new Review(rating, reviewText);
+        Review.reviewList.put(parkEntityId, rev);
     }
 
-    public @Nullable List<TicketType> getTickets() {
+    public void addTicket(Ticket ticket) {
+        if (this.tickets != null) {
+            this.tickets.add(ticket);
+        }
+    }
+
+    public @Nullable List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(@Nullable List<TicketType> tickets) {
+    public void setTickets(@Nullable List<Ticket> tickets) {
         this.tickets = tickets;
     }
 
-    public @Nullable List<String> getVisitHistory() {
+    public @Nullable List<LocalDateTime> getVisitHistory() {
         return visitHistory;
     }
 
-    public void setVisitHistory(@Nullable List<String> visitHistory) {
+    public void setVisitHistory(@Nullable List<LocalDateTime> visitHistory) {
         this.visitHistory = visitHistory;
     }
 

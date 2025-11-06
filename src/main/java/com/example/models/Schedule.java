@@ -1,5 +1,6 @@
 package com.example.models;
 
+import com.example.models.park_specified.ParkEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalTime;
@@ -11,7 +12,7 @@ import java.util.Random;
 public class Schedule {
     private int id;
     @Nullable
-    private List<Attraction> attractions;
+    private List<ParkEntity> attractions;
     private LocalTime startTime;
     private LocalTime endTime;
     @Nullable
@@ -19,7 +20,7 @@ public class Schedule {
 
     Random rand = new Random();
 
-    public Schedule(@Nullable List<Attraction> attractions, LocalTime startTime, LocalTime endTime, @Nullable List<String> specialEvents) {
+    public Schedule(@Nullable List<ParkEntity> attractions, LocalTime startTime, LocalTime endTime, @Nullable List<String> specialEvents) {
         this.id = rand.nextInt();
         this.attractions = attractions;
         this.startTime = startTime;
@@ -35,11 +36,11 @@ public class Schedule {
         this.id = id;
     }
 
-    public @Nullable List<Attraction> getAttractions() {
+    public @Nullable List<ParkEntity> getAttractions() {
         return attractions;
     }
 
-    public void setAttractions(@Nullable List<Attraction> attractions) {
+    public void setAttractions(@Nullable List<ParkEntity> attractions) {
         this.attractions = attractions;
     }
 
@@ -67,19 +68,19 @@ public class Schedule {
         this.specialEvents = specialEvents;
     }
 
-    public void addAttraction(Attraction attraction) {
+    public void addAttraction(ParkEntity attraction) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public void removeAttraction(Attraction attraction) {
+    public void removeAttraction(ParkEntity attraction) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public String getAttractionWorkingHours(Attraction attraction) {
+    public String getAttractionWorkingHours(ParkEntity attraction) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public boolean isAttractionAvailable(Attraction attraction, LocalTime time) {
+    public boolean isAttractionAvailable(ParkEntity attraction, LocalTime time) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
@@ -94,10 +95,10 @@ public class Schedule {
                 '}';
     }
 
-    public String shortAttractionList(List<Attraction> list) {
+    public String shortAttractionList(List<ParkEntity> list) {
         if (list == null) return "[]";
         List<String> ids = new ArrayList<>();
-        for (Attraction a : list) {
+        for (ParkEntity a : list) {
             ids.add(Objects.toString(a.getId(), "null"));
         }
         return ids.toString();

@@ -1,39 +1,38 @@
 package com.example.models.user_specified;
 
 import com.example.entities.Position;
-import com.example.entities.UserRole;
-import com.example.models.Attraction;
 import com.example.models.Schedule;
+import com.example.models.park_specified.ParkEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-class Staff extends User {
+public class Staff extends User {
+
     @Nullable
     private Position position;
     @Nullable
-    private List<Attraction> assignedAttractions;
+    private List<ParkEntity> assignedParkEntitys;
     @Nullable
-    private String workSchedule;
+    private Schedule workSchedule;
 
     public Staff(String firstName, String lastName, int age,
-                 String email, String password, UserRole role, String photoUrl,
+                 String email, String password, String photoUrl,
                  @Nullable Position position,
-                 @Nullable List<Attraction> assignedAttractions,
-                 @Nullable String workSchedule) {
-        super(firstName, lastName, age, email, password, role, photoUrl);
+                 @Nullable Schedule workSchedule) {
+        super(firstName, lastName, age, email, password, UserRole.STAFF, photoUrl);
         this.position = position;
-        this.assignedAttractions = assignedAttractions;
+        this.assignedParkEntitys = new ArrayList<>();
         this.workSchedule = workSchedule;
     }
 
-    public void operateAttraction(Attraction attraction) {
+    public void operateParkEntity(ParkEntity ParkEntity) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public void performMaintenance(Attraction attraction) {
+    public void performMaintenance(ParkEntity ParkEntity) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
@@ -41,8 +40,8 @@ class Staff extends User {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    public @Nullable List<Attraction> getAssignedAttractions() {
-        return assignedAttractions;
+    public @Nullable List<ParkEntity> getAssignedParkEntitys() {
+        return assignedParkEntitys;
     }
 
     public @Nullable Position getPosition() {
@@ -53,15 +52,15 @@ class Staff extends User {
         this.position = position;
     }
 
-    public void setAssignedAttractions(@Nullable List<Attraction> assignedAttractions) {
-        this.assignedAttractions = assignedAttractions;
+    public void setAssignedParkEntitys(@Nullable List<ParkEntity> assignedParkEntitys) {
+        this.assignedParkEntitys = assignedParkEntitys;
     }
 
-    public @Nullable String getWorkSchedule() {
+    public @Nullable Schedule getWorkSchedule() {
         return workSchedule;
     }
 
-    public void setWorkSchedule(@Nullable String workSchedule) {
+    public void setWorkSchedule(@Nullable Schedule workSchedule) {
         this.workSchedule = workSchedule;
     }
 
@@ -72,15 +71,15 @@ class Staff extends User {
                 ", FullName='" + getFullName() + '\'' +
                 ", photoUrl='" + getPhotoUrl() + '\'' +
                 ", position=" + getPosition() +
-                ", assignedAttractions=" + shortAttractionList(getAssignedAttractions()) +
+                ", assignedParkEntitys=" + shortParkEntityList(getAssignedParkEntitys()) +
                 ", workSchedule='" + getWorkSchedule() + '\'' +
                 '}';
     }
 
-    public String shortAttractionList(List<Attraction> list) {
+    public String shortParkEntityList(List<ParkEntity> list) {
         if (list == null) return "[]";
         List<String> ids = new ArrayList<>();
-        for (Attraction a : list) {
+        for (ParkEntity a : list) {
             ids.add(Objects.toString(a.getId(), "null"));
         }
         return ids.toString();

@@ -1,13 +1,8 @@
 package com.example.models.user_specified;
 
-import com.example.entities.Position;
-import com.example.entities.TicketType;
-import com.example.entities.UserRole;
-import com.example.models.Attraction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class User {
@@ -23,7 +18,7 @@ public class User {
 
     Random rand = new Random();
 
-    public User(String firstName, String lastName, int age, String email, String password, UserRole role, String photoUrl) {
+    public User(String firstName, String lastName, int age, String email, String password, UserRole role, @Nullable String photoUrl) {
         Id = rand.nextInt();
         FirstName = firstName;
         LastName = lastName;
@@ -34,16 +29,8 @@ public class User {
         PhotoUrl = photoUrl;
     }
 
-    public Staff CreateStaff(Position position, ArrayList<Attraction> assignedAttractions, String workSchedule) {
-        return new Staff(FirstName, LastName, Age, Email, Password, Role, PhotoUrl, position, assignedAttractions, workSchedule);
-    }
-
-    public Visitor CreateVisitor(ArrayList<TicketType> tickets, ArrayList<String> visitHistory, ArrayList<String> bookings) {
-        return new Visitor(FirstName, LastName, Age, Email, Password, Role, PhotoUrl, tickets, visitHistory, bookings);
-    }
-
     public boolean isStaff() {
-        return Role == UserRole.STAFF || Role == UserRole.ADMIN;
+        return Role == UserRole.STAFF;
     }
 
     public int getAge() {
@@ -119,6 +106,9 @@ public class User {
         return "User{" +
                 "Id=" + getId() +
                 ", FullName='" + getFullName() + '\'' +
+                ", PhotoUrl='" + getPhotoUrl() + '\'' +
+                ", Age=" + getAge() +
+                ", Password='" + getPassword() + '\'' +
                 ", Email='" + getEmail() + '\'' +
                 ", Role=" + getRole() +
                 '}';

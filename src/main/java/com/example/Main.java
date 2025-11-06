@@ -1,14 +1,16 @@
 package com.example;
 
 import com.example.entities.AttractionType;
-import com.example.entities.Status;
-import com.example.entities.UserRole;
-import com.example.models.Attraction;
+import com.example.entities.Position;
+import com.example.models.park_specified.ParkEntity;
+import com.example.models.user_specified.Staff;
+import com.example.models.user_specified.UserRole;
 import com.example.models.Schedule;
 import com.example.models.user_specified.User;
+import com.example.models.user_specified.Visitor;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -16,16 +18,31 @@ public class Main {
 
         User user = new User("John", "doe", 10, "email", "password", UserRole.STAFF, null);
 
-        Attraction attraction = new Attraction(
-                "atractionName",
+        ParkEntity attraction = ParkEntity.createAttraction(
+                "Roller Coaster",
                 AttractionType.FAMILY,
-                "description",
-                Status.OPERATING,
-                "10:00-21:00",
-                0,
-                0,
-                40
+                "A thrilling roller coaster ride.",
+                "10:00 - 21:00",
+                12,
+                24
         );
+
+        ParkEntity foodStall = ParkEntity.createFoodStall(
+                "Burger Shack",
+                "Delicious burgers and fries.",
+                "10:00 - 22:00"
+        );
+
+        ParkEntity eventArea = ParkEntity.createEventArea(
+                "Concert Stage",
+                "Live music performances.",
+                "18:00 - 23:00",
+                "Near the main entrance",
+                LocalDateTime.now(),
+                LocalDateTime.of(2025, 12, 31, 10, 0)
+        );
+
+
 
         Schedule schedule = new Schedule(
                 List.of(attraction),
@@ -34,13 +51,15 @@ public class Main {
                 List.of("se1", "se2")
         );
 
-        User staffUser = user.CreateStaff(null, new ArrayList<>(), null);
-        User visitorUser = user.CreateVisitor(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Staff userStaff = new Staff("Jane", "Doe", 30, "email", "password", null, Position.TECHNICIAN, schedule);
+        Visitor userVisitor = new Visitor("Alice", "Smith", 25, "email", "password", null);
 
         System.out.println(user.toString());
-        System.out.println(staffUser.toString());
-        System.out.println(visitorUser.toString());
-        System.out.println(attraction);
-        System.out.println(schedule);
+        System.out.println(userStaff.toString());
+        System.out.println(userVisitor.toString());
+        System.out.println(attraction.toString());
+        System.out.println(foodStall.toString());
+        System.out.println(eventArea.toString());
+        System.out.println(schedule.toString());
     }
 }
