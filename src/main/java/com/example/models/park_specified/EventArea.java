@@ -1,6 +1,5 @@
 package com.example.models.park_specified;
 
-import com.example.entities.Status;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
@@ -15,12 +14,12 @@ class EventArea extends ParkEntity {
         this.positionInPark = positionInPark;
         this.startTime = startTime;
         this.endTime = endTime;
-        ParkEntity.eventAreaList.add(this);
     }
 
     public String getPositionInPark() {
         return positionInPark;
     }
+
     public void setPositionInPark(String positionInPark) {
         this.positionInPark = positionInPark;
     }

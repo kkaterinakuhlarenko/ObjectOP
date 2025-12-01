@@ -1,6 +1,6 @@
 package com.example.models.user_specified;
 
-import com.example.entities.TicketType;
+import com.example.models.TicketType;
 import com.example.models.Review;
 import com.example.models.park_specified.ParkEntity;
 import com.example.models.Ticket;
@@ -47,9 +47,11 @@ public class Visitor extends User {
         Review.reviewList.put(parkEntityId, rev);
     }
 
-    public void addTicket(Ticket ticket) {
-        if (this.tickets != null) {
-            this.tickets.add(ticket);
+    public void addTicket(Ticket ticket) throws Exception {
+        if (ticket != null && ticket.isActive()) {
+            tickets.add(ticket);
+        } else {
+            throw new Exception("Cannot add ticket: tickets list is null or ticket is inactive.");
         }
     }
 

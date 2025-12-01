@@ -1,6 +1,5 @@
 package com.example.models.park_specified;
 
-import com.example.entities.Status;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -12,7 +11,6 @@ class FoodStall extends ParkEntity {
     public FoodStall(String name, @Nullable String description, String operatingHours) {
         super(name, description, operatingHours);
         this.menu = new HashMap<>();
-        ParkEntity.foodStallList.add(this);
     }
 
     public Map<String, Double> getMenu() {

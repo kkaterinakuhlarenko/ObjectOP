@@ -1,7 +1,9 @@
 package com.example.models.user_specified;
 
-import com.example.entities.Position;
+import com.example.ClassessStorage;
 import com.example.models.Schedule;
+import com.example.models.Ticket;
+import com.example.models.TicketType;
 import com.example.models.park_specified.ParkEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -83,5 +85,23 @@ public class Staff extends User {
             ids.add(Objects.toString(a.getId(), "null"));
         }
         return ids.toString();
+    }
+
+    public static List<Ticket> getVisitorTickets(Long visitorId) {
+        User vis = ClassessStorage.getUserById(visitorId);
+        assert vis != null;
+        if (vis instanceof Visitor) {
+            return ((Visitor) vis).getTickets();
+        }
+        return null;
+    }
+
+    public void createTicket(TicketType type, double price) {
+        try {
+            Ticket ticket = new Ticket(type, price, this.getId());
+            ClassessStorage.tickets.add(ticket);
+        } catch (Exception e) {
+            System.out.println("Error adding ticket: " + e.getMessage());
+        }
     }
 }

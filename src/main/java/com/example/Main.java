@@ -1,7 +1,9 @@
 package com.example;
 
-import com.example.entities.AttractionType;
-import com.example.entities.Position;
+import com.example.models.TicketType;
+import com.example.models.park_specified.AttractionType;
+import com.example.models.park_specified.ParkEntityFactory;
+import com.example.models.user_specified.Position;
 import com.example.models.park_specified.ParkEntity;
 import com.example.models.user_specified.Staff;
 import com.example.models.user_specified.UserRole;
@@ -18,7 +20,7 @@ public class Main {
 
         User user = new User("John", "doe", 10, "email", "password", UserRole.STAFF, null);
 
-        ParkEntity attraction = ParkEntity.createAttraction(
+        ParkEntity attraction = ParkEntityFactory.createAttraction(
                 "Roller Coaster",
                 AttractionType.FAMILY,
                 "A thrilling roller coaster ride.",
@@ -27,13 +29,13 @@ public class Main {
                 24
         );
 
-        ParkEntity foodStall = ParkEntity.createFoodStall(
+        ParkEntity foodStall = ParkEntityFactory.createFoodStall(
                 "Burger Shack",
                 "Delicious burgers and fries.",
                 "10:00 - 22:00"
         );
 
-        ParkEntity eventArea = ParkEntity.createEventArea(
+        ParkEntity eventArea = ParkEntityFactory.createEventArea(
                 "Concert Stage",
                 "Live music performances.",
                 "18:00 - 23:00",
@@ -53,6 +55,15 @@ public class Main {
 
         Staff userStaff = new Staff("Jane", "Doe", 30, "email", "password", null, Position.TECHNICIAN, schedule);
         Visitor userVisitor = new Visitor("Alice", "Smith", 25, "email", "password", null);
+
+        userStaff.createTicket(TicketType.SINGLE, 50.0);
+
+        try {
+            userVisitor.addTicket(ClassessStorage.getFirstTicket());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(Staff.getVisitorTickets(userVisitor.getId()));
 
         System.out.println(user.toString());
         System.out.println(userStaff.toString());

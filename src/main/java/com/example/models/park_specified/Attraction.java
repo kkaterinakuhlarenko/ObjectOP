@@ -1,7 +1,6 @@
 package com.example.models.park_specified;
 
-import com.example.entities.AttractionType;
-import com.example.entities.Status;
+import com.example.ClassessStorage;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -18,7 +17,6 @@ class Attraction extends ParkEntity {
         this.type = type;
         this.minAge = minAge < 0 ? 5 : minAge;
         this.capacity = capacity;
-        ParkEntity.attractionList.add(this);
     }
 
     public AttractionType getType() {
@@ -69,10 +67,6 @@ class Attraction extends ParkEntity {
         boolean allowed = visitorAge >= minAge;
         System.out.println("Age " + visitorAge + " -> " + (allowed ? "allowed" : "too young"));
         return allowed;
-    }
-
-    public static void addAttraction(Attraction attraction) {
-        ParkEntity.attractionList.add(attraction);
     }
 
     @Override

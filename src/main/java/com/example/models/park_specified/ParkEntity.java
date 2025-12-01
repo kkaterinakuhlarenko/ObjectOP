@@ -1,21 +1,14 @@
 package com.example.models.park_specified;
 
-import com.example.entities.AttractionType;
-import com.example.entities.Status;
+import com.example.ClassessStorage;
 import com.example.models.user_specified.Staff;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ParkEntity {
-    public static List<Attraction> attractionList = new ArrayList<>();
-    public static List<FoodStall> foodStallList = new ArrayList<>();
-    public static List<EventArea> eventAreaList = new ArrayList<>();
-
-
     protected Long id;
     protected String name;
     protected List<Staff> assignedStaff;
@@ -31,24 +24,7 @@ public class ParkEntity {
         this.description = description;
         this.status = Status.TEMP_CLOSED;
         this.operatingHours = operatingHours;
-    }
-
-    public static ParkEntity createAttraction(String attraction, AttractionType attractionType, String description, String operatingHours, int minAge, int capacity) {
-        Attraction newAttraction = new Attraction(attraction, attractionType, description, operatingHours, minAge, capacity);
-        attractionList.add(newAttraction);
-        return newAttraction;
-    }
-
-    public static ParkEntity createFoodStall(String foodStall, String description, String operatingHours) {
-        FoodStall newFoodStall = new FoodStall(foodStall, description, operatingHours);
-        foodStallList.add(newFoodStall);
-        return newFoodStall;
-    }
-
-    public static ParkEntity createEventArea(String eventAreaName, String description, String operatingHours,  String positionInPark, LocalDateTime startTime, LocalDateTime endTime) {
-        EventArea newEventArea = new EventArea(eventAreaName, description, operatingHours, positionInPark, startTime, endTime);
-        eventAreaList.add(newEventArea);
-        return newEventArea;
+        ClassessStorage.parkEntities.add(this);
     }
 
     public Long getId() {
@@ -107,8 +83,8 @@ public class ParkEntity {
     public List<Staff> getAssignedStaff() {
         return assignedStaff;
     }
-    public static Attraction getAttractionById(Long attractionId) {
-        for (Attraction attraction : ParkEntity.attractionList) {
+    public static ParkEntity getAttractionById(Long attractionId) {
+        for (ParkEntity attraction : ClassessStorage.parkEntities) {
             if (attraction.getId().equals(attractionId)) {
                 return attraction;
             }

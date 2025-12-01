@@ -1,12 +1,13 @@
 package com.example.models.user_specified;
 
+import com.example.ClassessStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 public class User {
-    protected int Id;
+    protected Long Id;
     protected String FirstName;
     protected String LastName;
     protected int Age;
@@ -16,10 +17,8 @@ public class User {
     @Nullable
     private String PhotoUrl;
 
-    Random rand = new Random();
-
     public User(String firstName, String lastName, int age, String email, String password, UserRole role, @Nullable String photoUrl) {
-        Id = rand.nextInt();
+        Id = Math.abs(new Random().nextLong());
         FirstName = firstName;
         LastName = lastName;
         Age = age;
@@ -27,6 +26,7 @@ public class User {
         Password = password;
         Role = role;
         PhotoUrl = photoUrl;
+        ClassessStorage.users.add(this);
     }
 
     public boolean isStaff() {
@@ -57,11 +57,11 @@ public class User {
         PhotoUrl = photoUrl;
     }
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

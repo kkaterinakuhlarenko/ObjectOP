@@ -1,7 +1,6 @@
 package com.example.models;
 
-import com.example.entities.AttractionType;
-import com.example.entities.TicketType;
+import com.example.models.park_specified.AttractionType;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -13,13 +12,15 @@ public class Ticket {
     private LocalDateTime ExpirationTime;
     private Double price;
     private Boolean isActive;
+    private Long createdByUserId;
 
-    public Ticket(TicketType type, Double price) {
+    public Ticket(TicketType type, Double price, Long userId) {
         this.id = Math.abs(new Random().nextLong());
         this.type = type;
         this.ExpirationTime = LocalDateTime.now().plus(type.getDuration());
         this.isActive = true;
         this.price = price;
+        this.createdByUserId = userId;
     }
 
     public Duration getDuration() {
@@ -34,8 +35,8 @@ public class Ticket {
 
     }
 
-    public Boolean isActive(Boolean isActive) {
-        if (!ExpirationTime.isBefore(LocalDateTime.now())) {
+    public Boolean isActive() {
+        if (ExpirationTime.isBefore(LocalDateTime.now())) {
             this.isActive = false;
         }
 
