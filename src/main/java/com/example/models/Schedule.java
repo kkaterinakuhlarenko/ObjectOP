@@ -1,5 +1,6 @@
 package com.example.models;
 
+import com.example.ClassessStorage;
 import com.example.models.park_specified.ParkEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Schedule {
-    private int id;
+    private Long id;
     @Nullable
     private List<ParkEntity> attractions;
     private LocalTime startTime;
@@ -18,21 +19,20 @@ public class Schedule {
     @Nullable
     private List<String> specialEvents;
 
-    Random rand = new Random();
-
     public Schedule(@Nullable List<ParkEntity> attractions, LocalTime startTime, LocalTime endTime, @Nullable List<String> specialEvents) {
-        this.id = rand.nextInt();
+        this.id = Math.abs(new Random().nextLong());
         this.attractions = attractions;
         this.startTime = startTime;
         this.endTime = endTime;
         this.specialEvents = specialEvents;
+        ClassessStorage.schedules.add(this);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

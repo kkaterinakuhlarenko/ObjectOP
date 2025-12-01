@@ -1,14 +1,13 @@
 package com.example;
 
+import com.example.models.Ticket;
 import com.example.models.TicketType;
 import com.example.models.park_specified.AttractionType;
 import com.example.models.park_specified.ParkEntityFactory;
 import com.example.models.user_specified.Position;
 import com.example.models.park_specified.ParkEntity;
 import com.example.models.user_specified.Staff;
-import com.example.models.user_specified.UserRole;
 import com.example.models.Schedule;
-import com.example.models.user_specified.User;
 import com.example.models.user_specified.Visitor;
 
 import java.time.LocalDateTime;
@@ -17,9 +16,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-        User user = new User("John", "doe", 10, "email", "password", UserRole.STAFF, null);
-
         ParkEntity attraction = ParkEntityFactory.createAttraction(
                 "Roller Coaster",
                 AttractionType.FAMILY,
@@ -56,7 +52,7 @@ public class Main {
         Staff userStaff = new Staff("Jane", "Doe", 30, "email", "password", null, Position.TECHNICIAN, schedule);
         Visitor userVisitor = new Visitor("Alice", "Smith", 25, "email", "password", null);
 
-        userStaff.createTicket(TicketType.SINGLE, 50.0);
+        userStaff.addTicket(new Ticket(TicketType.SINGLE, 50D, userStaff.getId()));
 
         try {
             userVisitor.addTicket(ClassessStorage.getFirstTicket());
@@ -65,7 +61,6 @@ public class Main {
         }
         System.out.println(Staff.getVisitorTickets(userVisitor.getId()));
 
-        System.out.println(user.toString());
         System.out.println(userStaff.toString());
         System.out.println(userVisitor.toString());
         System.out.println(attraction.toString());

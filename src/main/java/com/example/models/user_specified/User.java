@@ -1,12 +1,13 @@
 package com.example.models.user_specified;
 
 import com.example.ClassessStorage;
+import com.example.models.Ticket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class User {
+public abstract class User {
     protected Long Id;
     protected String FirstName;
     protected String LastName;
@@ -28,6 +29,8 @@ public class User {
         PhotoUrl = photoUrl;
         ClassessStorage.users.add(this);
     }
+
+    public abstract void addTicket(Ticket ticket) throws Exception;
 
     public boolean isStaff() {
         return Role == UserRole.STAFF;

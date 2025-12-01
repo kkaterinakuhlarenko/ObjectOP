@@ -1,5 +1,6 @@
 package com.example.models;
 
+import com.example.ClassessStorage;
 import com.example.models.park_specified.AttractionType;
 
 import java.time.Duration;
@@ -21,6 +22,14 @@ public class Ticket {
         this.isActive = true;
         this.price = price;
         this.createdByUserId = userId;
+    }
+
+    public Long getCreatedBy() {
+        return createdByUserId;
+    }
+
+    public void setCreatedBy(Long createdByUserId) {
+        this.createdByUserId = createdByUserId;
     }
 
     public Duration getDuration() {

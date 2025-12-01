@@ -3,7 +3,6 @@ package com.example.models.user_specified;
 import com.example.ClassessStorage;
 import com.example.models.Schedule;
 import com.example.models.Ticket;
-import com.example.models.TicketType;
 import com.example.models.park_specified.ParkEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,9 +95,9 @@ public class Staff extends User {
         return null;
     }
 
-    public void createTicket(TicketType type, double price) {
+    public void addTicket(Ticket ticket) {
         try {
-            Ticket ticket = new Ticket(type, price, this.getId());
+            ticket.setCreatedBy(this.Id);
             ClassessStorage.tickets.add(ticket);
         } catch (Exception e) {
             System.out.println("Error adding ticket: " + e.getMessage());

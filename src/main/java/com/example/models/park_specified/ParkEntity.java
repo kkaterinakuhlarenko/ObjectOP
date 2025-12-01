@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ParkEntity {
+public abstract class ParkEntity {
     protected Long id;
     protected String name;
     protected List<Staff> assignedStaff;
@@ -67,13 +67,9 @@ public class ParkEntity {
         this.operatingHours = operatingHours;
     }
 
-    public void startOperation() {
-        System.out.println(name + " starting work.");
-    }
+    public abstract void startOperation();
 
-    public void stopOperation() {
-        System.out.println(name + " stopping work.");
-    }
+    public abstract void stopOperation();
 
     public void assignStaff(Staff staff) {
         System.out.println("Personal " + staff + " assigned to attraction " + name);
